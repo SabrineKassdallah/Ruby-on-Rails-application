@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   get 'api/product/:id', controller: 'products', action: 'show'
 
   resources :users
-  post  '/auth/login', to:  'authentication#login'
+  post  'auth/login', to:  'authentication#login'
 
  
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
