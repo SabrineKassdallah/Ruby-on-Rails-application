@@ -14,7 +14,6 @@ class ProductsController < ApplicationController
 
   # POST /products
   def create
-
     @product = Product.new(product_params)
 
     if @product.save
@@ -22,7 +21,6 @@ class ProductsController < ApplicationController
     else
       render json: @product.errors, status: :unprocessable_entity
     end
-    
   end
 
   def update

@@ -3,18 +3,18 @@ class AuthenticationController < ApplicationController
 
   # POST /auth/login
   def login
-    user = User.find_by(email: params[:email])
-    if user.nil?
-      render json: {error: {message: 'EMAIL_NOT_FOUND'}}, status: :unauthorized
-    # elsif user.valid_password?(params[:password])
-    #   render json: payload(user)
-    # else
-    #   render json: {error: {message: 'INVALID_PASSWORD'}}, status: :unauthorized
-    # end
+    @user = User.find_by_email(params[:email])
+    if @user&.authenticate(params[:password])
+      token = JsonWebToken.encode(user_id: @user.id)
+      time = Time.now + 24.hours.to_i
+      render json: { token: token, exp: time.strftime("%d-%m-%Y %H:%M"),
+                     username: @user.username }, status: :ok
     else
-      render json: payload(user)
+      render json: { error: 'unauthorized' }, status: :unauthorized
     end
   end
+
+
 
   private
 
