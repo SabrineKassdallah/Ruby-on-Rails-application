@@ -6,8 +6,9 @@ Rails.application.routes.draw do
   put 'api/update_product/:id', controller: 'products', action: 'update'
   get 'api/product/:id', controller: 'products', action: 'show'
 
-  resources :users
-  post  'auth/login', to:  'authentication#login'
+  # resources :users
+  post  'api/auth/login', to:  'authentication#login'
+  post  'api/auth/signup', to:  'users#create'
 
  
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
